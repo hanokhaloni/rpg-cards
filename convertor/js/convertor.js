@@ -42,7 +42,16 @@ var card =
 // Ugly global variable holding the current card deck
 
 var validate = function() {
-    alert("validate");
+    var lines = data.split(/\r\n|\n/);
+    var headings = lines[0].split(','); // Splice up the first row to get the headings
+    var expectedHeadings = card.getHeader();
+    if (headings == expectedHeadings) {
+        alert("Everything is OK");
+    }
+    else {
+        alert("invalid!");
+    }
+    
 }
 
 var convert = function(data) {
@@ -53,6 +62,18 @@ var convert = function(data) {
     console.log("Convert done");
 }
 
+var downloadJson = function() {
+    var cards = $("#ouputTextArea").val();
+    var exportName = "cards";
+    var dataStr = "text/json;charset=utf-8," + encodeURIComponent(cards);
+
+    
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
 
 
 var alertInputText = function()
@@ -90,6 +111,6 @@ function processData(data) {
 
 
 $(document).ready(function () {
-    alertInputText();
+    
 });
 
