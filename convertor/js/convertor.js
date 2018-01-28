@@ -6,18 +6,7 @@ var card =
     "icon": "white-book-1",
     "icon_back": "robe",
     "contents": [
-        "subtitle | 1st level evocation",
-        "rule",
-        "property | Casting time | 1 action",
-        "property | Range | Self (15ft cone)",
-        "property | Components | V,S",
-        "rule",
-        "fill | 2",
-        "text | Each creature in a 15-foot cone must make a Dexterity saving throw. A creature takes <b>3d6 fire damage</b> on a failed save, or half as much damage on a successful one.",
-        "text | The fire ignites any flammable objects in the area that aren't being worn or carried.",
-        "fill | 3",
-        "section | At higher levels",
-        "text | +1d6 damage for each slot above 1st"
+        "text | Text entry"
     ],
     "tags": [],
     fromCSV: function(values) {
@@ -41,7 +30,8 @@ var card =
 
 // Ugly global variable holding the current card deck
 
-var validate = function() {
+function validate() {
+    var data = getDataFromInputField();
     var lines = data.split(/\r\n|\n/);
     var headings = lines[0].split(','); // Splice up the first row to get the headings
     var expectedHeadings = card.getHeader();
@@ -54,7 +44,7 @@ var validate = function() {
     
 }
 
-var convert = function(data) {
+function convert(data) {
     console.log("starting Convert...");
     var data = getDataFromInputField();
     var cards = processData(data);
@@ -62,7 +52,7 @@ var convert = function(data) {
     console.log("Convert done");
 }
 
-var downloadJson = function() {
+function downloadJson() {
     var cards = $("#ouputTextArea").val();
     var exportName = "cards";
     var dataStr = "text/json;charset=utf-8," + encodeURIComponent(cards);
@@ -79,7 +69,7 @@ var downloadJson = function() {
 }
 
 
-var alertInputText = function()
+function alertInputText()
 {
     var val = getDataFromInputField();
     if (val != "") {
@@ -92,7 +82,12 @@ function getDataFromInputField() {
     return $.trim($("#inputTextArea").val());
 }
 
+function getDataFromOuputField() {
+    return $.trim($("#inputTextArea").val());
+}
+
 function processData(data) {
+
     var lines = data.split(/\r\n|\n/);
 
     //Set up the data arrays
