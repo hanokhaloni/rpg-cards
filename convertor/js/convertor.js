@@ -69,10 +69,13 @@ var downloadJson = function() {
 
     
     var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+    downloadAnchorNode.href = "data:" + dataStr;
+    downloadAnchorNode.download = exportName + ".json";
+    downloadAnchorNode.innerHTML = 'download JSON';
+
+    var container = document.getElementById('downloadAnchorNode');
+    //container.children.remove();
+    container.appendChild(downloadAnchorNode);
 }
 
 
